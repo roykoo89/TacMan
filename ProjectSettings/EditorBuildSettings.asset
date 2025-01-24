@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/WorkingSceneWithCommunicator.unity
-    guid: a888c4ab00dae014e8ef2f4a085f4f78
+    path: Assets/Scenes/WorkingSceneMeshCutting.unity
+    guid: b47f9513c3c0c814188968ffc7454a1f
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: f767f88f4723ee343a6ffd91f74b803a,
       type: 2}

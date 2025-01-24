@@ -7,7 +7,6 @@ using Sngty;
 public class ExampleCommunicator : MonoBehaviour
 {
     public Sngty.SingularityManager mySingularityManager;
-    public string deviceName = "exampleDeviceName";
     private DeviceSignature myDevice = new DeviceSignature();
     
     // Start is called before the first frame update
@@ -60,14 +59,14 @@ public class ExampleCommunicator : MonoBehaviour
     public void onMessageRecieved(string message)
     {
         Debug.Log("Message recieved from device: " + message);
-        if (message == "ChangeToRed")
-        {
-            CubeManager.Instance.ChangeCubeColor(Color.red);
-        }
-        else if (message == "ChangeToBlue")
-        {
-            CubeManager.Instance.ChangeCubeColor(Color.blue);
-        }
+        // if (message == "ChangeToRed")
+        // {
+        //     CubeManager.Instance.ChangeCubeColor(Color.red);
+        // }
+        // else if (message == "ChangeToBlue")
+        // {
+        //     CubeManager.Instance.ChangeCubeColor(Color.blue);
+        // }
     }
 
     public void onError(string errorMessage)
