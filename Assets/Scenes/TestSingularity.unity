@@ -452,8 +452,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   connectionType: 1
-  clientIP: 127.0.0.1
-  clientPort: 21
+  clientIP: 192.168.56.1
+  clientPort: 8080
 --- !u!4 &1392959151
 Transform:
   m_ObjectHideFlags: 0

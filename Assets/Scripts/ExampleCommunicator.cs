@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,18 +13,18 @@ public class ExampleCommunicator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        List<DeviceSignature> pairedDevices = mySingularityManager.GetPairedDevices();
-
-        //If you are looking for a device with a specific name (in this case exampleDeviceName):
-        for (int i = 0; i < pairedDevices.Count; i++)
-        {
-            if (deviceName.Equals(pairedDevices[i].name))
-            {
-                myDevice = pairedDevices[i];
-                Debug.Log("Found device with name: " + myDevice.name);
-                break;
-            }
-        }
+        // List<DeviceSignature> pairedDevices = mySingularityManager.GetPairedDevices();
+        //
+        // //If you are looking for a device with a specific name (in this case exampleDeviceName):
+        // for (int i = 0; i < pairedDevices.Count; i++)
+        // {
+        //     if (deviceName.Equals(pairedDevices[i].name))
+        //     {
+        //         myDevice = pairedDevices[i];
+        //         Debug.Log("Found device with name: " + myDevice.name);
+        //         break;
+        //     }
+        // }
 
         if (!myDevice.Equals(default(DeviceSignature)))
         {
@@ -59,10 +60,23 @@ public class ExampleCommunicator : MonoBehaviour
     public void onMessageRecieved(string message)
     {
         Debug.Log("Message recieved from device: " + message);
+        if (message == "ChangeToRed")
+        {
+            CubeManager.Instance.ChangeCubeColor(Color.red);
+        }
+        else if (message == "ChangeToBlue")
+        {
+            CubeManager.Instance.ChangeCubeColor(Color.blue);
+        }
     }
 
     public void onError(string errorMessage)
     {
         Debug.LogError("Error with Singularity: " + errorMessage);
+    }
+
+    public void SendMessageToServer(string msg)
+    {
+        mySingularityManager.sendMessage(msg, myDevice);
     }
 }
