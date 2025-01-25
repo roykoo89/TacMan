@@ -55,9 +55,9 @@ public class CollisionHandler : MonoBehaviour
         // Neighbor offsets for Left, Top, Right, Bottom, Front, Back
         Vector3Int[] neighborOffsets = new Vector3Int[]
         {
-            new Vector3Int(-1, 0, 0), // Left
-            new Vector3Int(0, 1, 0),  // Top
             new Vector3Int(1, 0, 0),  // Right
+            new Vector3Int(-1, 0, 0), // Left            
+            new Vector3Int(0, 1, 0),  // Top
             new Vector3Int(0, -1, 0), // Bottom
             new Vector3Int(0, 0, 1),  // Front
             new Vector3Int(0, 0, -1)  // Back
