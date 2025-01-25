@@ -9818,7 +9818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1c7c87e4e5a204caf213fa1a1be550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  voxelPrefab: {fileID: 358518658713047549, guid: 0bb2a043e4540964abe8c818d0db906b,
+  voxelPrefab: {fileID: 5591226686339683327, guid: da4e6643cbbc54f4da8e2170d0a1ae5a,
     type: 3}
   leftHand: {fileID: 541597581}
 --- !u!4 &1325462289

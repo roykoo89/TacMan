@@ -9,12 +9,15 @@ public class VoxelGenerator : MonoBehaviour
     public int gridSize = 10;            // Number of voxels along each axis
     public float voxelSize = 1f;         // Size of each voxel
 
+    public GameObject grabbableParent;
+
     // Dictionary to store voxel positions
     public static Dictionary<Vector3Int, GameObject> voxelGrid = new Dictionary<Vector3Int, GameObject>();
 
     void Start()
     {
         GenerateVoxels();
+        SetupGrabbableParent();
     }
 
     void GenerateVoxels()
@@ -72,5 +75,17 @@ public class VoxelGenerator : MonoBehaviour
                 }
             }
         }
+    }
+
+    void SetupGrabbableParent()
+    {
+        // Calculate the bounds of the grid
+        float gridExtent = (gridSize - 1) * voxelSize;
+        Vector3 gridCenter = new Vector3(gridExtent / 2, gridExtent / 2, gridExtent / 2);
+
+        // Add a BoxCollider to the grabbable parent
+        BoxCollider boxCollider = grabbableParent.GetComponent<BoxCollider>();
+        boxCollider.center = gridCenter;
+        boxCollider.size = new Vector3(gridSize, gridSize, gridSize) * voxelSize;
     }
 }
