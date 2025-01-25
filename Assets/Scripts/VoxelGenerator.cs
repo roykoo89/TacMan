@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class VoxelGenerator : MonoBehaviour
 {
-    public GameObject voxelPrefab; // The voxel prefab
-    public int gridSize = 10;      // Number of voxels along each axis
-    public float voxelSize = 1f;   // Size of each voxel
+    public GameObject voxelPrefab;       // The voxel prefab
+    public GameObject triggerCubePrefab; // The trigger cube prefab (empty GameObject with a trigger collider)
+    public int gridSize = 10;            // Number of voxels along each axis
+    public float voxelSize = 1f;         // Size of each voxel
 
     void Start()
     {
@@ -24,14 +25,28 @@ public class VoxelGenerator : MonoBehaviour
             {
                 for (int z = 0; z < gridSize; z++)
                 {
-                    // Calculate the position of each voxel relative to the parent
+                    // Calculate the position of each cube relative to the parent
                     Vector3 position = parentPosition + new Vector3(x, y, z) * voxelSize;
 
-                    // Instantiate the voxel at the calculated position
-                    GameObject voxel = Instantiate(voxelPrefab, position, Quaternion.identity, transform);
+                    // Check if the current position is part of the outer layer
+                    if (x == 0 || x == gridSize - 1 ||
+                        y == 0 || y == gridSize - 1 ||
+                        z == 0 || z == gridSize - 1)
+                    {
+                        // Instantiate a trigger cube for the outer layer
+                        GameObject triggerCube = Instantiate(triggerCubePrefab, position, Quaternion.identity, transform);
 
-                    // Scale the voxel
-                    voxel.transform.localScale = Vector3.one * voxelSize;
+                        // Scale the trigger cube
+                        triggerCube.transform.localScale = Vector3.one * voxelSize;
+                    }
+                    else
+                    {
+                        // Instantiate a voxel for the inner grid
+                        GameObject voxel = Instantiate(voxelPrefab, position, Quaternion.identity, transform);
+
+                        // Scale the voxel
+                        voxel.transform.localScale = Vector3.one * voxelSize;
+                    }
                 }
             }
         }
