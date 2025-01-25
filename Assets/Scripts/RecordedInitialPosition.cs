@@ -7,33 +7,22 @@ public class RecordedInitialPosition : MonoBehaviour
 {
     public GameObject ballPosition; // Assign from the Inspector
     public GameObject stickPrefab;
-    public TMP_Text countdownText; // Assign a UI Text for countdown
 
-    private bool isRecording = false;
+    private bool isButtonPressed = false;
 
     void Update()
     {
         // Detect Y button press
         if (OVRInput.GetDown(OVRInput.Button.Four)) // Y button on left controller
         {
-            if (!isRecording)
-                StartCoroutine(RecordFingerTipPosition());
+            if (!isButtonPressed)
+                RecordTipPosition();
         }
     }
 
-    private IEnumerator RecordFingerTipPosition()
+    private void RecordTipPosition()
     {
-        isRecording = true;
-
-        // Countdown logic
-        float countdown = 3f;
-        while (countdown > 0)
-        {
-            countdownText.text = $"Recording in: {Mathf.Ceil(countdown)}";
-            yield return new WaitForSeconds(1f);
-            countdown -= 1f;
-        }
-        countdownText.text = "Recording...";
+        isButtonPressed = true;
 
         // Get right index fingertip position
         Transform initialPosition = ballPosition.transform;
@@ -45,8 +34,6 @@ public class RecordedInitialPosition : MonoBehaviour
 
         ballPosition.SetActive(false);
 
-        // Clear UI and reset
-        countdownText.text = "";
-        isRecording = false;
+        isButtonPressed = false;
     }
 }
