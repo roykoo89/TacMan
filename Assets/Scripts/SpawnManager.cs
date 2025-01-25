@@ -7,17 +7,25 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject voxelPrefab;
     public GameObject leftHand;
+    private GameObject voxelInstance;
     
-    public void SpawnVoxel()
+    public void SpawnSetPositionVoxel()
     {
-        Instantiate(voxelPrefab, leftHand.transform.position, Quaternion.identity);
+        if (voxelInstance == null)
+        {
+            voxelInstance = Instantiate(voxelPrefab, leftHand.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            voxelInstance.transform.position = leftHand.transform.position;
+        }
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SpawnVoxel();
+            SpawnSetPositionVoxel();
         }
     }
 }

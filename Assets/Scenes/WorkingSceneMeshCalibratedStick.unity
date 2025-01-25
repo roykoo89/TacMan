@@ -855,6 +855,7 @@ MonoBehaviour:
   ballPosition: {fileID: 518756459}
   stickPrefab: {fileID: 2954910049152903141, guid: edfa28571b7bcf14f87423b361eec223,
     type: 3}
+  leftHand: {fileID: 774921815}
 --- !u!4 &99623032
 Transform:
   m_ObjectHideFlags: 0
@@ -4469,6 +4470,12 @@ MonoBehaviour:
   _includeChildrenAsDependents: 1
   _gameObjects: []
   _monoBehaviours: []
+--- !u!1 &541597581 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 113768, guid: 126d619cf4daa52469682f85c1378b4a,
+    type: 3}
+  m_PrefabInstance: {fileID: 131134576}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &543205046
 GameObject:
   m_ObjectHideFlags: 0
@@ -9246,6 +9253,42 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - Title: BallRecordPosition
+    Button: 8
+    ButtonMode: 0
+    Callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 99623031}
+          m_TargetAssemblyTypeName: RecordedInitialPosition, Assembly-CSharp
+          m_MethodName: RecordInitialPosition
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Title: BallResetPosition
+    Button: 8388608
+    ButtonMode: 0
+    Callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 99623031}
+          m_TargetAssemblyTypeName: RecordedInitialPosition, Assembly-CSharp
+          m_MethodName: ResetPosition
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &1232034674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9777,7 +9820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   voxelPrefab: {fileID: 358518658713047549, guid: 0bb2a043e4540964abe8c818d0db906b,
     type: 3}
-  leftHand: {fileID: 774921815}
+  leftHand: {fileID: 541597581}
 --- !u!4 &1325462289
 Transform:
   m_ObjectHideFlags: 0

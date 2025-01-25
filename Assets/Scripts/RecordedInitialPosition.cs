@@ -7,16 +7,17 @@ public class RecordedInitialPosition : MonoBehaviour
 {
     public GameObject ballPosition; // Assign from the Inspector
     public GameObject stickPrefab;
+    public GameObject leftHand;
+
+    private GameObject _stick;
 
     private bool isButtonPressed = false;
-
-    void Update()
+    
+    public void RecordInitialPosition()
     {
-        // Detect Y button press
-        if (OVRInput.GetDown(OVRInput.Button.Four)) // Y button on left controller
+        if (!isButtonPressed)
         {
-            if (!isButtonPressed)
-                RecordTipPosition();
+            RecordTipPosition();
         }
     }
 
@@ -27,13 +28,31 @@ public class RecordedInitialPosition : MonoBehaviour
         // Get right index fingertip position
         Transform initialPosition = ballPosition.transform;
 
-        GameObject stick = Instantiate(stickPrefab);
+        if (_stick == null)
+        {
+            _stick = Instantiate(stickPrefab);
+        }
+        else
+        {
+            _stick.SetActive(true);
+        }
 
-        stick.transform.position = initialPosition.position;
-        stick.transform.rotation = initialPosition.rotation;
+        _stick.transform.position = initialPosition.position;
+        _stick.transform.rotation = initialPosition.rotation;
 
         ballPosition.SetActive(false);
 
         isButtonPressed = false;
+    }
+    
+    public void ResetPosition()
+    {
+        if (_stick != null)
+        {
+            _stick.SetActive(false);
+        }
+
+        ballPosition.SetActive(true);
+        ballPosition.transform.position = leftHand.transform.position;
     }
 }
