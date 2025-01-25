@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class VoxelGenerator : MonoBehaviour
 {
-    public GameObject voxelPrefab; // The voxel prefab
-    public int gridSize = 10;      // Number of voxels along each axis
-    public float voxelSize = 1f;   // Size of each voxel
+    public GameObject voxelPrefab;       // The voxel prefab
+    public GameObject triggerCubePrefab; // The trigger cube prefab (empty GameObject with a trigger collider)
+    public int gridSize = 10;            // Number of voxels along each axis
+    public float voxelSize = 1f;         // Size of each voxel
+
+    // Dictionary to store voxel positions
+    public static Dictionary<Vector3Int, GameObject> voxelGrid = new Dictionary<Vector3Int, GameObject>();
 
     void Start()
     {
@@ -15,7 +19,6 @@ public class VoxelGenerator : MonoBehaviour
 
     void GenerateVoxels()
     {
-        // Get the starting position from the VoxelParent's position
         Vector3 parentPosition = transform.position;
 
         for (int x = 0; x < gridSize; x++)
@@ -24,14 +27,48 @@ public class VoxelGenerator : MonoBehaviour
             {
                 for (int z = 0; z < gridSize; z++)
                 {
-                    // Calculate the position of each voxel relative to the parent
+                    Vector3Int gridPosition = new Vector3Int(x, y, z);
+
+                    // Calculate the position of each cube relative to the parent
                     Vector3 position = parentPosition + new Vector3(x, y, z) * voxelSize;
 
-                    // Instantiate the voxel at the calculated position
-                    GameObject voxel = Instantiate(voxelPrefab, position, Quaternion.identity, transform);
+                    // Check if the current position is part of the outer layer
+                    if (x == 0 || x == gridSize - 1 ||
+                        y == 0 || y == gridSize - 1 ||
+                        z == 0 || z == gridSize - 1)
+                    {
+                        // Instantiate a trigger cube for the outer layer
+                        GameObject triggerCube = Instantiate(triggerCubePrefab, position, Quaternion.identity, transform);
 
-                    // Scale the voxel
-                    voxel.transform.localScale = Vector3.one * voxelSize;
+                        // Scale the trigger cube
+                        triggerCube.transform.localScale = Vector3.one * voxelSize;
+
+                        voxelGrid[gridPosition] = triggerCube;
+
+                        // Set grid position in the CollisionHandler
+                        var collisionHandler = triggerCube.GetComponent<CollisionHandler>();
+                        if (collisionHandler != null)
+                        {
+                            collisionHandler.gridPosition = gridPosition;
+                        }
+                    }
+                    else
+                    {
+                        // Instantiate a voxel for the inner grid
+                        GameObject voxel = Instantiate(voxelPrefab, position, Quaternion.identity, transform);
+
+                        // Scale the voxel
+                        voxel.transform.localScale = Vector3.one * voxelSize;
+
+                        voxelGrid[gridPosition] = voxel;
+
+                        // Set grid position in the CollisionHandler
+                        var collisionHandler = voxel.GetComponent<CollisionHandler>();
+                        if (collisionHandler != null)
+                        {
+                            collisionHandler.gridPosition = gridPosition;
+                        }
+                    }
                 }
             }
         }

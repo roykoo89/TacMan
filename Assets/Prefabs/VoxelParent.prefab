@@ -46,5 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   voxelPrefab: {fileID: 1656963705217214943, guid: b07a67f38dcb0084ab8820061890bd20,
     type: 3}
-  gridSize: 10
+  triggerCubePrefab: {fileID: 1656963705217214943, guid: d716cc6569a67be4787f994dad4d3965,
+    type: 3}
+  gridSize: 11
   voxelSize: 0.02

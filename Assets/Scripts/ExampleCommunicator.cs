@@ -8,7 +8,23 @@ public class ExampleCommunicator : MonoBehaviour
 {
     public Sngty.SingularityManager mySingularityManager;
     private DeviceSignature myDevice = new DeviceSignature();
-    
+
+    public static ExampleCommunicator Instance { get; private set; }
+
+    void Awake()
+    {
+        // Ensure only one instance of Communicator exists
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Optional: Persist across scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Destroy duplicate instances
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

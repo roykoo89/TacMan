@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5350171197352899702}
   - component: {fileID: 1873733719506024900}
   - component: {fileID: 5033232994345345844}
-  - component: {fileID: 2815186749064568209}
   m_Layer: 0
   m_Name: SphereTip
   m_TagString: Stick
@@ -107,18 +106,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.24
   m_Center: {x: 0, y: 0.25, z: 0}
---- !u!114 &2815186749064568209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2954910049152903141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 460151ff60c95fe43a615091711abf96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4802458066231114249
 GameObject:
   m_ObjectHideFlags: 0
