@@ -83,6 +83,16 @@ public class ExampleCommunicator : MonoBehaviour
         // {
         //     CubeManager.Instance.ChangeCubeColor(Color.blue);
         // }
+        
+        //the message is 3 floats separated by commas
+        string[] splitMessage = message.Split(',');
+        if (splitMessage.Length == 3)
+        {
+            float x = float.Parse(splitMessage[0]);
+            float y = float.Parse(splitMessage[1]);
+            float z = float.Parse(splitMessage[2]);
+            StickSimulation.Instance.SetAngles(x, y, z);
+        }
     }
 
     public void onError(string errorMessage)
