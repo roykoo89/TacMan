@@ -9,6 +9,9 @@ public class VoxelGenerator : MonoBehaviour
     public int gridSize = 10;            // Number of voxels along each axis
     public float voxelSize = 1f;         // Size of each voxel
 
+    // Dictionary to store voxel positions
+    public static Dictionary<Vector3Int, GameObject> voxelGrid = new Dictionary<Vector3Int, GameObject>();
+
     void Start()
     {
         GenerateVoxels();
@@ -16,7 +19,6 @@ public class VoxelGenerator : MonoBehaviour
 
     void GenerateVoxels()
     {
-        // Get the starting position from the VoxelParent's position
         Vector3 parentPosition = transform.position;
 
         for (int x = 0; x < gridSize; x++)
@@ -25,6 +27,8 @@ public class VoxelGenerator : MonoBehaviour
             {
                 for (int z = 0; z < gridSize; z++)
                 {
+                    Vector3Int gridPosition = new Vector3Int(x, y, z);
+
                     // Calculate the position of each cube relative to the parent
                     Vector3 position = parentPosition + new Vector3(x, y, z) * voxelSize;
 
@@ -38,6 +42,15 @@ public class VoxelGenerator : MonoBehaviour
 
                         // Scale the trigger cube
                         triggerCube.transform.localScale = Vector3.one * voxelSize;
+
+                        voxelGrid[gridPosition] = triggerCube;
+
+                        // Set grid position in the CollisionHandler
+                        var collisionHandler = triggerCube.GetComponent<CollisionHandler>();
+                        if (collisionHandler != null)
+                        {
+                            collisionHandler.gridPosition = gridPosition;
+                        }
                     }
                     else
                     {
@@ -46,6 +59,15 @@ public class VoxelGenerator : MonoBehaviour
 
                         // Scale the voxel
                         voxel.transform.localScale = Vector3.one * voxelSize;
+
+                        voxelGrid[gridPosition] = voxel;
+
+                        // Set grid position in the CollisionHandler
+                        var collisionHandler = voxel.GetComponent<CollisionHandler>();
+                        if (collisionHandler != null)
+                        {
+                            collisionHandler.gridPosition = gridPosition;
+                        }
                     }
                 }
             }
