@@ -30,8 +30,6 @@ public class CollisionHandler : MonoBehaviour
 
             Vector3 collisionNormal = (transform.position - other.transform.position).normalized;
 
-            GetAndSendSpace(collisionNormal);
-
             // Handle voxel behavior
             if (isVoxel && !hasDisappeared)
             {
@@ -40,6 +38,7 @@ public class CollisionHandler : MonoBehaviour
                 //Debug.Log(valueOnCollision.ToString() + " " + neighborStatus);
                 //ExampleCommunicator.Instance.SendMessageToServer(valueOnCollision.ToString() + " " + neighborStatus);
 
+                GetAndSendSpace(collisionNormal);
                 hasDisappeared = true;
                 meshRenderer.enabled = false;
                 objectCollider.isTrigger = true;
