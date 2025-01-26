@@ -18,7 +18,7 @@ public class VoxelCollision : MonoBehaviour
         if (other.CompareTag("Voxel"))
         {
             // Destroy or deactivate the voxel
-            other.gameObject.SetActive(false);
+            //other.gameObject.SetActive(false);
 
             // Instantiate a destroyed voxel at x times the amount but x time smaller
             int amount = 2;
@@ -40,8 +40,6 @@ public class VoxelCollision : MonoBehaviour
                 StartCoroutine(TriggerHapticFeedback());
                 StartCoroutine(ResetEffects());
             }
-
-            _exampleCommunicator.SendMessageToServer("ResistMe");
         }
     }
     

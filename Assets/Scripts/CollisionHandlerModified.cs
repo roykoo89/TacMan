@@ -2,19 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionHandler : MonoBehaviour
+public class CollisionHandlerModified : MonoBehaviour
 {
-    public int valueOnCollision = 0; // Value to send when collided
-    public bool isVoxel = false;    // Whether the object is a voxel
     public Vector3Int gridPosition; // The voxel's grid position
 
-    private bool hasDisappeared = false; // Track if the voxel has already disappeared
-    private MeshRenderer meshRenderer;
     private Collider objectCollider;
 
     void Start()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
         objectCollider = GetComponent<Collider>();
     }
 
@@ -31,25 +26,6 @@ public class CollisionHandler : MonoBehaviour
             Vector3 collisionNormal = (transform.position - other.transform.position).normalized;
 
             GetAndSendSpace(collisionNormal);
-
-            // Handle voxel behavior
-            if (isVoxel && !hasDisappeared)
-            {
-                //Debug.Log($"Voxel collided: Sending value {valueOnCollision}");
-                //Debug.Log($"Neighbor status: {neighborStatus}");
-                //Debug.Log(valueOnCollision.ToString() + " " + neighborStatus);
-                //ExampleCommunicator.Instance.SendMessageToServer(valueOnCollision.ToString() + " " + neighborStatus);
-
-                hasDisappeared = true;
-                meshRenderer.enabled = false;
-                objectCollider.isTrigger = true;
-                valueOnCollision = 0;
-            }
-            else
-            {
-                //Debug.Log(valueOnCollision.ToString() + " " + neighborStatus);
-                //ExampleCommunicator.Instance.SendMessageToServer(valueOnCollision.ToString() + " " + neighborStatus);
-            }
         }
     }
 
@@ -90,8 +66,7 @@ public class CollisionHandler : MonoBehaviour
             string hitFace = faceNames[closestFaceIndex];
 
             // Send information to the communicator
-            Debug.Log($"{hitFace}");
-            ExampleCommunicator.Instance?.SendMessageToServer($"{hitFace}");
+            ExampleCommunicator.Instance?.OnCollisionSendOnce($"{hitFace}");
         }
         else
         {
@@ -123,9 +98,6 @@ public class CollisionHandler : MonoBehaviour
             {
                 GameObject neighbor = VoxelGenerator.voxelGrid[neighborPosition];
                 var neighborHandler = neighbor.GetComponent<CollisionHandler>();
-
-                // Check if the neighbor has disappeared
-                status += neighborHandler != null && !neighborHandler.hasDisappeared ? "1" : "0";
             }
             else
             {

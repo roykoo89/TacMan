@@ -14,10 +14,17 @@ public class VoxelGenerator : MonoBehaviour
     // Dictionary to store voxel positions
     public static Dictionary<Vector3Int, GameObject> voxelGrid = new Dictionary<Vector3Int, GameObject>();
 
+    //private BoxCollider voxelParentCollider;
+
     void Start()
     {
         GenerateVoxels();
+        // Ensure the VoxelParent has a BoxCollider
+        //voxelParentCollider = gameObject.GetComponent<BoxCollider>();
         SetupGrabbableParent();
+
+        // Adjust the collider to encase all voxels
+        //AdjustVoxelParentCollider();
     }
 
     void GenerateVoxels()
@@ -87,5 +94,25 @@ public class VoxelGenerator : MonoBehaviour
         BoxCollider boxCollider = grabbableParent.GetComponent<BoxCollider>();
         boxCollider.center = gridCenter;
         boxCollider.size = new Vector3(gridSize, gridSize, gridSize) * voxelSize;
+    }
+
+    void AdjustVoxelParentCollider()
+    {
+        // Calculate the bounds of the entire voxel grid
+        Vector3 minBounds = transform.position;
+        Vector3 maxBounds = minBounds + new Vector3(gridSize, gridSize, gridSize) * voxelSize;
+
+        // Center of the collider
+        Vector3 center = (minBounds + maxBounds) / 2f;
+
+        // Size of the collider
+        Vector3 size = maxBounds - minBounds;
+
+        // Adjust the BoxCollider
+        //voxelParentCollider.center = transform.InverseTransformPoint(center); // Local center
+        //voxelParentCollider.size = size;
+
+        // Ensure the collider is enabled
+        //voxelParentCollider.isTrigger = false; // Set to trigger if necessary
     }
 }

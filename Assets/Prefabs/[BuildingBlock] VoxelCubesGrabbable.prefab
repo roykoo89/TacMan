@@ -258,6 +258,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2203889923956510499, guid: 0bb2a043e4540964abe8c818d0db906b,
         type: 3}
+      propertyPath: gridSize
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203889923956510499, guid: 0bb2a043e4540964abe8c818d0db906b,
+        type: 3}
+      propertyPath: voxelSize
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203889923956510499, guid: 0bb2a043e4540964abe8c818d0db906b,
+        type: 3}
       propertyPath: grabbableParent
       value: 
       objectReference: {fileID: 5591226686339683327}

@@ -11,6 +11,8 @@ public class ExampleCommunicator : MonoBehaviour
 
     public static ExampleCommunicator Instance { get; private set; }
 
+    bool processing = false;
+
     void Awake()
     {
         // Ensure only one instance of Communicator exists
@@ -103,5 +105,22 @@ public class ExampleCommunicator : MonoBehaviour
     public void SendMessageToServer(string msg)
     {
         mySingularityManager.sendMessage(msg, myDevice);
+    }
+
+    public void OnCollisionSendOnce(string msg)
+    {
+        if (!processing)
+        {
+            Debug.Log($"Hit Face: {msg}");
+            StartCoroutine(SendMessageToServerCoroutine(msg));
+        }
+    }
+
+    IEnumerator SendMessageToServerCoroutine(string msg)
+    {
+        processing = true;
+        SendMessageToServer(msg);
+        yield return new WaitForSeconds(0.5f);
+        processing = false;
     }
 }
