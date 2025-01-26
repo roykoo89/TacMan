@@ -34,8 +34,9 @@ public class CollisionHandler : MonoBehaviour
             // Handle voxel behavior
             if (isVoxel && !hasDisappeared)
             {
-                Debug.Log($"Voxel collided: Sending value {valueOnCollision}");
-                Debug.Log($"Neighbor status: {neighborStatus}");
+                //Debug.Log($"Voxel collided: Sending value {valueOnCollision}");
+                //Debug.Log($"Neighbor status: {neighborStatus}");
+                Debug.Log(valueOnCollision.ToString() + " " + neighborStatus);
                 ExampleCommunicator.Instance.SendMessageToServer(valueOnCollision.ToString() + " " + neighborStatus);
 
                 hasDisappeared = true;
@@ -45,7 +46,8 @@ public class CollisionHandler : MonoBehaviour
             }
             else
             {
-                
+                Debug.Log(valueOnCollision.ToString() + " " + neighborStatus);
+                ExampleCommunicator.Instance.SendMessageToServer(valueOnCollision.ToString() + " " + neighborStatus);
             }
         }
     }

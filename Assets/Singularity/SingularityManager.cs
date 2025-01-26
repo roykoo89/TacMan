@@ -119,6 +119,7 @@ namespace Sngty
                 {
                     bytesRead = await tcpStream.ReadAsync(buffer, 0, buffer.Length);
                     string message = System.Text.Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                    Debug.Log(message);
                     accumulatedData += message;
 
                     int endByte = accumulatedData.LastIndexOf("E");
