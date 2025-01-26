@@ -52,7 +52,7 @@ public class StickSimulation : MonoBehaviour
             ConnectionPoint.localPosition = connection;
 
             // Rotate the rotate point by phi which is the parent of the servos
-            RotatePt.rotation = Quaternion.Euler(0, 0, Phi);
+            RotatePt.localRotation = Quaternion.Euler(0, 0, Phi);
 
             // Update rods (LineRenderer positions)
             Rod1a.SetPosition(0, Servo1.position);
