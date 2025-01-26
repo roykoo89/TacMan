@@ -32,17 +32,17 @@ public class CollisionHandler : MonoBehaviour
             string neighborStatus = GetNeighborStatus();
 
             // Handle voxel behavior
-            if (isVoxel && !hasDisappeared)
+            if (isVoxel)
             {
                 //Debug.Log($"Voxel collided: Sending value {valueOnCollision}");
                 //Debug.Log($"Neighbor status: {neighborStatus}");
                 Debug.Log(valueOnCollision.ToString() + " " + neighborStatus);
                 ExampleCommunicator.Instance.SendMessageToServer(valueOnCollision.ToString() + " " + neighborStatus);
 
-                hasDisappeared = true;
-                meshRenderer.enabled = false;
-                objectCollider.isTrigger = true;
-                valueOnCollision = 0;
+                //hasDisappeared = true;
+                //meshRenderer.enabled = false;
+                //objectCollider.isTrigger = true;
+                //valueOnCollision = 0;
             }
             else
             {
